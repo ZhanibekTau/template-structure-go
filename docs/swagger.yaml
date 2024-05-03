@@ -1,0 +1,94 @@
+definitions:
+  model.Product:
+    properties:
+      brand:
+        type: string
+      category:
+        type: string
+      description:
+        type: string
+      discountPercentage:
+        type: number
+      id:
+        type: string
+      images:
+        items:
+          type: string
+        type: array
+      price:
+        type: number
+      rating:
+        type: number
+      stock:
+        type: integer
+      thumbnail:
+        type: string
+      title:
+        type: string
+    type: object
+  model.ProductList:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/model.Product'
+        type: array
+    type: object
+info:
+  contact: {}
+  title: Subbox API
+  version: "1.0"
+paths:
+  /api/v1/products/getAllProducts:
+    get:
+      consumes:
+      - application/json
+      description: Get products to the database
+      operationId: get-products
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: bad request
+          schema:
+            type: string
+        "500":
+          description: internal server error
+          schema:
+            type: string
+      summary: Get All products
+  /api/v1/products/insertProducts:
+    post:
+      consumes:
+      - application/json
+      description: Add new products to the database
+      operationId: insert-products
+      parameters:
+      - description: List of products to insert
+        in: body
+        name: products
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/model.ProductList'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: bad request
+          schema:
+            type: string
+        "500":
+          description: internal server error
+          schema:
+            type: string
+      summary: Insert products
+swagger: "2.0"
